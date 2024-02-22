@@ -1,7 +1,5 @@
 export default function Users() {
 	return (
-		<div>
-			create
-		</div>
+		<h2>users</h2>
 	)
 }
