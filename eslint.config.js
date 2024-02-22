@@ -6,6 +6,7 @@ const compat = new FlatCompat()
 module.exports = antfu(
 	{
 		typescript: true,
+		react: true,
 		stylistic: {
 			indent: 'tab',
 		},

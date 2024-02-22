@@ -16,10 +16,13 @@ export type Helper<TInput, TValue, TError = unknown> = [TInput] extends [never]
 	? () => Promise<Result<TValue, TError>>
 	: (input: TInput) => Promise<Result<TValue, TError>>
 
-let db: Db
+declare global {
+	// eslint-disable-next-line vars-on-top, no-var
+	var db: Db | undefined
+}
 
 export function initializeHelpers(currentDb: Db) {
-	db = currentDb
+	globalThis.db = currentDb
 }
 
 export type HelperDescriptor<TInput, TValue, TError = unknown> = [TInput] extends [never] ? {
@@ -36,6 +39,9 @@ export function defineHelper<TValue, TInput = never, TError = unknown>(
 	const { fn, input: schema } = descriptor
 
 	const unsafe = ((input: TInput) => {
+		if (!db) {
+			throw new Error('Db not initialize')
+		}
 		return fn({ input, db })
 	}) as Helper<TInput, TValue, TError>
 
@@ -50,3 +56,12 @@ export function defineHelper<TValue, TInput = never, TError = unknown>(
 
 	return helper
 }
+
+export type HelperResultType<
+	HelperMap extends Record<string, (...args: Array<any>) => Promise<Result<unknown, unknown>>>,
+	HelperName extends keyof HelperMap,
+> = Awaited<ReturnType<HelperMap[HelperName]>> extends Result<infer TValue, unknown>
+	? TValue extends Array<infer TItem>
+		? TItem
+		: TValue
+	: never

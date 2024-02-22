@@ -5,3 +5,8 @@
 input {
 	@apply bg-transparent;
 }
+
+
+.modal:not([open]) .modal-box {
+	display: none;
+}
