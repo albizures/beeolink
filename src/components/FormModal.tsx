@@ -138,14 +138,14 @@ function ModalContent(props: ModalContentProps) {
 export type UseFormModalResult = ReturnType<typeof useFormModal>
 
 export function useFormModal() {
-	const [formKey, setFormKey] = React.useState(0)
+	const [modalKey, setModalKey] = React.useState(0)
 	const modalRef = React.useRef<HTMLDialogElement>(null)
 
 	return {
-		formKey,
+		modalKey,
 		modalRef,
 		onReset: React.useCallback(() => {
-			setFormKey((key) => key + 1)
+			setModalKey((key) => key + 1)
 		}, []),
 		onClick: React.useCallback(() => {
 			modalRef.current?.showModal()

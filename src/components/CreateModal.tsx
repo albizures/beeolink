@@ -26,7 +26,14 @@ export function CreateModal(props: CreateModalProps) {
 
 				{children}
 			</button>
-			<CreateContent title={formTitle} fields={fields} initialState={initialState} action={action} key={modal.formKey} {...modal} />
+			<CreateContent
+				title={formTitle}
+				fields={fields}
+				initialState={initialState}
+				action={action}
+				key={modal.modalKey}
+				{...modal}
+			/>
 		</>
 	)
 }

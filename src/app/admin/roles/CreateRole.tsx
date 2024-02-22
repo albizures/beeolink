@@ -21,16 +21,12 @@ const fields: Array<FieldDescriptor> = [
 ]
 
 export function CreateRole(_props: CreateRoleProps) {
-	const modal = useFormModal()
-
 	return (
 		<CreateModal
 			formTitle="Add New Role"
 			action={createRole}
 			initialState={initialCreateRoleState}
 			fields={fields}
-			key={modal.formKey}
-			{...modal}
 		>
 			<Icon name="add" />
 			Add Role
