@@ -4,7 +4,7 @@ import React from 'react'
 
 type ModalProps = {
 	children: React.ReactNode
-	modalRef: React.RefObject<HTMLDialogElement>
+	modalRef: React.LegacyRef<HTMLDialogElement>
 	className?: string
 }
 

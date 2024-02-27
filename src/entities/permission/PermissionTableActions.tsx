@@ -1,8 +1,9 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { ConfirmationBtn } from '../../components/ConfirmationBtn'
 import { Icon } from '../../components/Icon'
 import { rootSola } from '../../sola'
+import type { ConfirmType } from '../../components/Confirm/confirmStore'
+import { ConfirmBtn } from '../../components/Confirm/ConfirmBtn'
 import { deletePermission } from './permissionActions'
 
 const sola = rootSola.withTag('permission-actions')
@@ -15,11 +16,16 @@ export type PermissionTableActionsProps = {
 
 export function PermissionTableActions(props: PermissionTableActionsProps) {
 	const router = useRouter()
-	async function onDelete() {
+	async function onConfirmDelete(type: ConfirmType) {
+		if (type === 'cancel') {
+			sola.log('deletion canceled')
+			return
+		}
+
 		const result = await deletePermission(props.id)
 
 		if (result.ok) {
-			sola.log('permission deleted')
+			sola.log('deleted')
 			router.refresh()
 		}
 		else {
@@ -29,9 +35,9 @@ export function PermissionTableActions(props: PermissionTableActionsProps) {
 	}
 	return (
 		<div>
-			<ConfirmationBtn description="This action cannot be undone" title="Are you sure?" className="btn btn-xs btn-outline btn-error" onConfirm={onDelete}>
+			<ConfirmBtn description="This action cannot be undone" title="Are you sure?" className="btn btn-xs btn-outline btn-error" onConfirm={onConfirmDelete}>
 				<Icon name="delete" />
-			</ConfirmationBtn>
+			</ConfirmBtn>
 		</div>
 	)
 }

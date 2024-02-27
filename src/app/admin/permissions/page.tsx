@@ -1,7 +1,7 @@
 import { toUnwrapOr } from '@vyke/results'
 import { permissionHelpers, permissionTableConfig } from '../../../entities/permission/permissions'
 import { DataTable } from '../../../components/DataTable'
-import { ModalProvider } from '../../../components/ModalContext'
+import { ConfirmModal } from '../../../components/Confirm/Confirm'
 import { CreatePermission } from './CreatePermission'
 
 export default async function Roles() {
@@ -11,9 +11,8 @@ export default async function Roles() {
 		<div className="p-10">
 			<CreatePermission />
 
-			<ModalProvider>
-				<DataTable config={permissionTableConfig} items={permissions} />
-			</ModalProvider>
+			<DataTable config={permissionTableConfig} items={permissions} />
+			<ConfirmModal />
 		</div>
 	)
 }

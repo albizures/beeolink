@@ -1,18 +1,20 @@
-import { useConfirmationModal } from './ModalContext'
+import { type OnConfirm, confirmHelpers } from './confirmStore'
 
-type ConfirmationBtnProps = {
-	onConfirm: () => void
+type ConfirmBtnProps = {
 	children: React.ReactNode
+	className?: string
+	// confirm specific props
 	title: string
 	description: string
-	className?: string
+	confirmLabel?: string
+	onConfirm: OnConfirm | undefined
 }
 
-export function ConfirmationBtn(props: ConfirmationBtnProps) {
+export function ConfirmBtn(props: ConfirmBtnProps) {
 	const { children, className, title, description, onConfirm } = props
-	const modal = useConfirmationModal()
+
 	function onClick() {
-		modal.open({
+		confirmHelpers.open({
 			title,
 			description,
 			confirmLabel: 'Delete',
