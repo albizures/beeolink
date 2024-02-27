@@ -11,6 +11,7 @@ import {
 	FaMagnifyingGlass,
 	FaPlus,
 	FaRegCircleXmark,
+	FaTrash,
 	FaUser,
 } from 'react-icons/fa6'
 
@@ -27,6 +28,7 @@ const icons = {
 	add: FaPlus,
 	success: FaCheck,
 	error: FaRegCircleXmark,
+	delete: FaTrash,
 } as const
 
 type IconNames = keyof typeof icons

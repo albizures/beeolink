@@ -27,16 +27,14 @@ const fields: Array<FieldDescriptor> = [
 
 export function CreatePermission(_props: CreatePermissionProps) {
 	return (
-		<>
-			<CreateModal
-				formTitle="Add New Permission"
-				action={createPermission}
-				initialState={initialCreatePermissionState}
-				fields={fields}
-			>
-				<Icon name="add" />
-				Add Permission
-			</CreateModal>
-		</>
+		<CreateModal
+			formTitle="Add New Permission"
+			action={createPermission}
+			initialState={initialCreatePermissionState}
+			fields={fields}
+		>
+			<Icon name="add" />
+			Add Permission
+		</CreateModal>
 	)
 }

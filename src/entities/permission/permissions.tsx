@@ -1,12 +1,13 @@
 import { z } from 'zod'
 import { v4 as uuidv4 } from 'uuid'
 import { Ok, type Result, to } from '@vyke/results'
-import type { InferSelectModel } from 'drizzle-orm'
+import { type InferSelectModel, eq } from 'drizzle-orm'
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { type HelperResultType, defineHelper } from '../../entityHelpers'
 import type { DataTableConfig } from '../../components/DataTable'
 import type { FormStateStatus } from '../../components/CreateModal'
 import { rootSola } from '../../sola'
+import { PermissionTableActions } from './PermissionTableActions'
 
 const sola = rootSola.withTag('permissions')
 
@@ -40,6 +41,20 @@ export const permissionHelpers = {
 			return Ok(result)
 		},
 	}),
+	delete: defineHelper({
+		input: z.string(),
+		fn: async (args) => {
+			const { db, input } = args
+
+			const result = await db
+				.delete(permissions)
+				.where(eq(permissions.id, input))
+
+			sola.log('remove result:', result)
+
+			return Ok(result)
+		},
+	}),
 	getAll: defineHelper({
 		fn: (args) => {
 			const { db } = args
@@ -49,6 +64,8 @@ export const permissionHelpers = {
 	}),
 }
 
+export type GetAllResult = HelperResultType<typeof permissionHelpers, 'getAll'>
+
 export type CreatePermissionFormState = Result<{
 	status: FormStateStatus
 }, unknown>
@@ -57,7 +74,7 @@ export const initialCreatePermissionState: CreatePermissionFormState = Ok({
 	status: 'idle',
 })
 
-export const permissionTableConfig: DataTableConfig<HelperResultType<typeof permissionHelpers, 'getAll'>> = {
+export const permissionTableConfig: DataTableConfig<GetAllResult> = {
 	rowId(item) {
 		return item.id
 	},
@@ -90,8 +107,10 @@ export const permissionTableConfig: DataTableConfig<HelperResultType<typeof perm
 			title() {
 				return 'actions'
 			},
-			content(_item) {
-				return 'actions'
+			content(item, _index) {
+				return (
+					<PermissionTableActions {...item} />
+				)
 			},
 		},
 	],

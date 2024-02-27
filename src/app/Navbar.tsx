@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth/next'
 import { Icon } from '../components/Icon'
 import { authOptions } from '../auth'
 import { SignOutBtn } from './SignOutBtn'

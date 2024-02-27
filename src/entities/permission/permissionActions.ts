@@ -1,5 +1,5 @@
 'use server'
-import { Err, Ok, toCapture } from '@vyke/results'
+import { Err, Ok, type Result, toCapture } from '@vyke/results'
 import { type CreatePermissionFormState, permissionHelpers } from './permissions'
 
 export async function createPermission(prev: CreatePermissionFormState, data: FormData): Promise<CreatePermissionFormState> {
@@ -14,6 +14,24 @@ export async function createPermission(prev: CreatePermissionFormState, data: Fo
 		return Ok({
 			status: 'success',
 		})
+	}
+
+	console.error(result)
+
+	return Err({
+		status: 'failed',
+	})
+}
+
+type DeletePermissionResult = Result<true, {
+	status: 'failed'
+}>
+
+export async function deletePermission(id: string): Promise<DeletePermissionResult> {
+	const result = await toCapture(permissionHelpers.delete(id))
+
+	if (result.ok) {
+		return Ok(true)
 	}
 
 	console.error(result)

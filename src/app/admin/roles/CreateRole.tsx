@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import { Icon } from '../../../components/Icon'
-import { useFormModal } from '../../../components/FormModal'
 import type { FieldDescriptor } from '../../../components/FormFields'
 import { CreateModal } from '../../../components/CreateModal'
 import { createRole } from '../../../entities/role/roleActions'
