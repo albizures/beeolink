@@ -27,15 +27,13 @@ export async function createPermission(prev: FormState, data: FormData): Promise
 	})
 }
 
-type DeletePermissionResult = Result<true, {
-	status: 'failed'
-}>
-
-export async function deletePermission(id: string): Promise<DeletePermissionResult> {
+export async function deletePermission(id: string): Promise<FormState> {
 	const result = await toCapture(permissionHelpers.delete(id))
 
 	if (result.ok) {
-		return Ok(true)
+		return Ok({
+			status: 'success',
+		})
 	}
 
 	console.error(result)

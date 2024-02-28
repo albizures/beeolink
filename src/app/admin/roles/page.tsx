@@ -1,11 +1,11 @@
 import { toUnwrapOr } from '@vyke/results'
-import { roleHelpes, roleTableConfig } from '../../../entities/role/roles'
+import { roleHelpes } from '../../../entities/role/roles'
 import { DataTable } from '../../../components/DataTable'
-import { roleFields } from '../../../entities/role/roleFormConfig'
+import { createRoleFields } from '../../../entities/role/roleFormConfig'
 import { createRole } from '../../../entities/role/roleActions'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { Icon } from '../../../components/Icon'
-import { initialFormState } from '../../../components/Form/formState'
+import { roleTableConfig } from '../../../entities/role/roleTableConfig'
 
 export default async function Roles() {
 	const roles = await toUnwrapOr(roleHelpes.getAll(), [])
@@ -17,7 +17,7 @@ export default async function Roles() {
 				title="Add New Role"
 				submitLabel="Create Role"
 				action={createRole}
-				fields={roleFields}
+				fields={createRoleFields}
 			>
 				<Icon name="add" />
 				Add Roles

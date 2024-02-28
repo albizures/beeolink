@@ -18,7 +18,7 @@ export const createPermissionFields: Array<FieldDescriptor> = [
 	},
 ]
 
-export function editPermissionFields(permission: Permission) {
+export function updatePermissionFields(permission: Permission) {
 	return createPermissionFields.concat({
 		type: 'hidden',
 		name: 'id',

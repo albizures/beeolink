@@ -6,7 +6,7 @@ import type { ConfirmType } from '../../components/Confirm/confirmStore'
 import { ConfirmBtn } from '../../components/Confirm/ConfirmBtn'
 import { FormModalBtn } from '../../components/FormModal/FormModalBtn'
 import { deletePermission, updatePermission } from './permissionActions'
-import { editPermissionFields } from './permissionFormConfig'
+import { updatePermissionFields } from './permissionFormConfig'
 
 const sola = rootSola.withTag('permission-actions')
 
@@ -40,7 +40,7 @@ export function PermissionTableActions(props: PermissionTableActionsProps) {
 	return (
 		<div className="space-x-2">
 			<FormModalBtn
-				fields={editPermissionFields(props)}
+				fields={updatePermissionFields(props)}
 				title="Edit Permission"
 				action={updatePermission}
 				submitLabel="Edit Permission"
