@@ -6,7 +6,7 @@ import { env } from './env.mjs'
 import { db } from './db'
 
 export const authOptions: NextAuthOptions = {
-	// it seems Adapter form next-auth and @auth/drizzle-adapter are differente 🤷‍♂️
+	// it seems Adapter form next-auth and @auth/drizzle-adapter are different 🤷‍♂️
 	adapter: DrizzleAdapter(db) as Adapter,
 	providers: [
 		GoogleProvider({
