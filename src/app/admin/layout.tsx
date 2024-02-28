@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FormModal } from '../../components/FModal/FormModal'
+import { FormModal } from '../../components/FormModal/FormModal'
 import { ConfirmModal } from '../../components/Confirm/Confirm'
 
 export type AdminLayoutProps = {

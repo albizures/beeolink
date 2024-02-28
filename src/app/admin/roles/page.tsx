@@ -3,7 +3,7 @@ import { roleHelpes, roleTableConfig } from '../../../entities/role/roles'
 import { DataTable } from '../../../components/DataTable'
 import { roleFields } from '../../../entities/role/roleFormConfig'
 import { createRole } from '../../../entities/role/roleActions'
-import { FormModalBtn } from '../../../components/FModal/FormModalBtn'
+import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { Icon } from '../../../components/Icon'
 import { initialFormState } from '../../../components/Form/formState'
 

@@ -1,7 +1,7 @@
 import { toUnwrapOr } from '@vyke/results'
 import { permissionHelpers, permissionTableConfig } from '../../../entities/permission/permissions'
 import { DataTable } from '../../../components/DataTable'
-import { FormModalBtn } from '../../../components/FModal/FormModalBtn'
+import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { createPermission } from '../../../entities/permission/permissionActions'
 import { Icon } from '../../../components/Icon'
 import { createPermissionFields } from '../../../entities/permission/permissionFormConfig'

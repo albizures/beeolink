@@ -4,7 +4,7 @@ import { Icon } from '../../components/Icon'
 import { rootSola } from '../../sola'
 import type { ConfirmType } from '../../components/Confirm/confirmStore'
 import { ConfirmBtn } from '../../components/Confirm/ConfirmBtn'
-import { FormModalBtn } from '../../components/FModal/FormModalBtn'
+import { FormModalBtn } from '../../components/FormModal/FormModalBtn'
 import { deletePermission, updatePermission } from './permissionActions'
 import { editPermissionFields } from './permissionFormConfig'
 
