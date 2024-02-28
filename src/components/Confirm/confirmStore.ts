@@ -1,15 +1,15 @@
 import { type StoreApi, create } from 'zustand'
+import { type ModalState, createModalHelpers } from '../Modals/modalHelpers'
 
 type Status = 'open' | 'closed'
 export type ConfirmType = 'cancel' | 'continue'
 export type OnConfirm = (type: ConfirmType) => void
-type ConfirmState = {
+type ConfirmState = ModalState & {
 	status: Status
 	title: string
 	description: string
 	confirmLabel: string | undefined
 	onConfirm: OnConfirm | undefined
-	modal?: HTMLDialogElement
 }
 
 const defaultState: ConfirmState = {
@@ -20,9 +20,6 @@ const defaultState: ConfirmState = {
 	onConfirm: undefined,
 }
 
-type SetState = StoreApi<ConfirmState>['setState']
-type GetState = StoreApi<ConfirmState>['getState']
-
 type OpenArgs = {
 	title: string
 	description: string
@@ -30,13 +27,20 @@ type OpenArgs = {
 	onConfirm?: OnConfirm
 }
 
-function createHelpers(set: SetState, get: GetState) {
-	function open(args: OpenArgs) {
-		const { modal } = get()
-		if (!modal) {
-			throw new Error('modal reference is invalid')
-		}
+type SetState = StoreApi<ConfirmState>['setState']
+type GetState = StoreApi<ConfirmState>['getState']
 
+function createHelpers(set: SetState, get: GetState) {
+	const modalHelpers = createModalHelpers({
+		defaultState,
+		onClose() {
+			const { onConfirm } = get()
+
+			onConfirm && onConfirm('cancel')
+		},
+	}, set, get)
+
+	function open(args: OpenArgs) {
 		const { title, description, onConfirm, confirmLabel } = args
 
 		set({
@@ -47,37 +51,18 @@ function createHelpers(set: SetState, get: GetState) {
 			status: 'open',
 		})
 
-		modal.showModal()
+		modalHelpers.open()
 	}
 
 	function close(confirmType: ConfirmType) {
-		const { modal, onConfirm } = get()
-
-		set({
-			...defaultState,
-		})
+		const { onConfirm } = get()
 
 		onConfirm && onConfirm(confirmType)
-		modal?.close()
-	}
-
-	function setRef(modal: HTMLDialogElement | null) {
-		set({ modal: modal ?? undefined })
-		if (modal) {
-			modal.addEventListener('close', () => {
-				const { modal: current, onConfirm } = get()
-				if (current === modal) {
-					set({
-						...defaultState,
-					})
-					onConfirm && onConfirm('cancel')
-				}
-			})
-		}
+		modalHelpers.close()
 	}
 
 	return {
-		setRef,
+		...modalHelpers,
 		open,
 		close,
 	}

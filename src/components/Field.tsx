@@ -2,6 +2,7 @@ export type FieldProps = {
 	label: string
 	name: string
 	placeholder?: string
+	defaultValue?: string
 	isRequired: boolean
 	rightLabel?: string
 	bottomLeftLabel?: string
@@ -17,6 +18,7 @@ export function Field(props: FieldProps) {
 		rightLabel,
 		bottomLeftLabel,
 		bottomRightLabel,
+		defaultValue,
 	} = props
 	return (
 		<label className="form-control w-full">
@@ -24,7 +26,7 @@ export function Field(props: FieldProps) {
 				<span className="label-text font-bold">{label}</span>
 				{rightLabel && <span className="label-text-alt">Top Right label</span>}
 			</div>
-			<input required={isRequired} type="text" name={name} placeholder={placeholder} className="input input-bordered w-full" />
+			<input required={isRequired} defaultValue={defaultValue} type="text" name={name} placeholder={placeholder} className="input input-bordered w-full" />
 			{(bottomLeftLabel || bottomRightLabel) && (
 				<div className="label">
 					{bottomLeftLabel && <span className="label-text-alt">{bottomLeftLabel}</span>}

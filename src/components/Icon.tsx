@@ -9,6 +9,7 @@ import {
 	FaGoogle,
 	FaKey,
 	FaMagnifyingGlass,
+	FaPen,
 	FaPlus,
 	FaRegCircleXmark,
 	FaTrash,
@@ -29,6 +30,7 @@ const icons = {
 	success: FaCheck,
 	error: FaRegCircleXmark,
 	delete: FaTrash,
+	edit: FaPen,
 } as const
 
 type IconNames = keyof typeof icons

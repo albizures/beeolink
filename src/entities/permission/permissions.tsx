@@ -41,6 +41,31 @@ export const permissionHelpers = {
 			return Ok(result)
 		},
 	}),
+	update: defineHelper({
+		input: z.object({
+			id: z.string(),
+			name: z.string().optional(),
+			description: z.string().optional(),
+		}),
+		fn: async (args) => {
+			const { db, input } = args
+
+			sola.log(input)
+
+			const result = await db
+				.update(permissions)
+				.set({
+					...input,
+				})
+				.where(eq(permissions.id, input.id))
+				.returning()
+				.get()
+
+			sola.log('update result:', result)
+
+			return Ok(result)
+		},
+	}),
 	delete: defineHelper({
 		input: z.string(),
 		fn: async (args) => {
@@ -71,6 +96,14 @@ export type CreatePermissionFormState = Result<{
 }, unknown>
 
 export const initialCreatePermissionState: CreatePermissionFormState = Ok({
+	status: 'idle',
+})
+
+export type UpdatePermissionFormState = Result<{
+	status: FormStateStatus
+}, unknown>
+
+export const initialUpdatePermissionState: CreatePermissionFormState = Ok({
 	status: 'idle',
 })
 

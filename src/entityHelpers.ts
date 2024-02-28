@@ -1,5 +1,5 @@
 import { Err, type Result } from '@vyke/results'
-import type { z } from 'zod'
+import { z } from 'zod'
 import type { Db } from './db'
 
 export type HelperFnArgs<TInput> = {
@@ -10,11 +10,12 @@ export type HelperFn<TInput, TValue, TError> = (args: HelperFnArgs<TInput>) => P
 
 export type UnsafeHelper<TInput, TValue, TError = unknown> = {
 	unsafe: Helper<TInput, TValue, TError>
+	schema: z.ZodType<TInput>
 }
 
 export type Helper<TInput, TValue, TError = unknown> = [TInput] extends [never]
 	? () => Promise<Result<TValue, TError>>
-	: (input: TInput) => Promise<Result<TValue, TError>>
+	: (input: TInput & unknown) => Promise<Result<TValue, TError>>
 
 declare global {
 	// eslint-disable-next-line vars-on-top, no-var
@@ -53,6 +54,7 @@ export function defineHelper<TValue, TInput = never, TError = unknown>(
 	const helper = (schema ? safe : unsafe) as Helper<TInput, TValue, TError> & UnsafeHelper<TInput, TValue, TError>
 
 	helper.unsafe = unsafe
+	helper.schema = schema || z.any()
 
 	return helper
 }
