@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { Icon } from '../Icon'
-import type { FormStateStatus } from '../CreateModal'
 import { FormFields } from '../Form/FormFields'
+import type { FormStateStatus } from '../Form/formState'
 import { formModalHelpers } from './formModalStore'
 
 export function FormModal() {
@@ -16,7 +16,7 @@ export function FormModal() {
 function FormModalContent() {
 	const formRef = React.useRef<HTMLFormElement>(null)
 	const modal = formModalHelpers.useModal()
-	const { action, initialState, title, fields } = modal
+	const { action, initialState, title, fields, submitLabel } = modal
 	const [state, formAction] = useFormState(action, initialState)
 
 	const status = state.ok ? state.value.status : 'failed'
@@ -36,7 +36,7 @@ function FormModalContent() {
 					<h2 className="text-2xl font-bold text-center">
 						{title}
 					</h2>
-					<FormFields submitLabel="Edit" fields={fields} status={status} />
+					<FormFields submitLabel={submitLabel} fields={fields} status={status} />
 				</ModalBox>
 			</form>
 			<form method="dialog" className="modal-backdrop absolute w-full h-full">

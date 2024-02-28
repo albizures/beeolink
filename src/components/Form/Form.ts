@@ -1,5 +1,4 @@
 import type { Result } from '@vyke/results'
+import type { FormState } from './formState'
 
-export type FormStateStatus = 'idle' | 'success' | 'failed' | 'loading'
 export type FormAction = (prev: FormState, data: FormData) => Promise<FormState>
-export type FormState = Result<{ status: FormStateStatus }, unknown>

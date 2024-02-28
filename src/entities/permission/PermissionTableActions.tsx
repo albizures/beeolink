@@ -4,18 +4,11 @@ import { Icon } from '../../components/Icon'
 import { rootSola } from '../../sola'
 import type { ConfirmType } from '../../components/Confirm/confirmStore'
 import { ConfirmBtn } from '../../components/Confirm/ConfirmBtn'
-import { formModalHelpers } from '../../components/FModal/formModalStore'
+import { FormModalBtn } from '../../components/FModal/FormModalBtn'
 import { deletePermission, updatePermission } from './permissionActions'
-import { initialCreatePermissionState } from './permissions'
-import { permissionFields } from './permissionFormConfig'
+import { editPermissionFields } from './permissionFormConfig'
 
 const sola = rootSola.withTag('permission-actions')
-
-const editPermissionFields = permissionFields.concat({
-	type: 'hidden',
-	name: 'id',
-	label: 'id',
-})
 
 export type PermissionTableActionsProps = {
 	id: string
@@ -44,34 +37,17 @@ export function PermissionTableActions(props: PermissionTableActionsProps) {
 		}
 	}
 
-	function onEdit() {
-		formModalHelpers.open({
-			fields: editPermissionFields.map((field) => {
-				const name = field.name
-				if (name in props) {
-					return {
-						...field,
-						defaultValue: props[name as keyof PermissionTableActionsProps],
-					}
-				}
-				return field
-			}),
-			onSubmit(state) {
-				if (state.ok && state.value.status === 'success') {
-					router.refresh()
-				}
-			},
-			title: 'Edit Permission',
-			action: updatePermission,
-			initialState: initialCreatePermissionState,
-		})
-	}
-
 	return (
 		<div className="space-x-2">
-			<button onClick={onEdit} className="btn btn-xs btn-outline">
+			<FormModalBtn
+				fields={editPermissionFields(props)}
+				title="Edit Permission"
+				action={updatePermission}
+				submitLabel="Edit Permission"
+				className="btn btn-xs btn-outline"
+			>
 				<Icon name="edit" />
-			</button>
+			</FormModalBtn>
 			<ConfirmBtn
 				description="This action cannot be undone"
 				title="Are you sure?"

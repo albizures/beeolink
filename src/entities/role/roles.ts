@@ -4,7 +4,6 @@ import { Ok, type Result, to } from '@vyke/results'
 import { z } from 'zod'
 import { type HelperResultType, defineHelper } from '../../entityHelpers'
 import type { DataTableConfig } from '../../components/DataTable'
-import type { FormStateStatus } from '../../components/CreateModal'
 import { rootSola } from '../../sola'
 
 const sola = rootSola.withTag('roles')
@@ -43,14 +42,6 @@ export const roleHelpes = {
 		},
 	}),
 }
-
-export type CreateRoleFormState = Result<{
-	status: FormStateStatus
-}, unknown>
-
-export const initialCreateRoleState: CreateRoleFormState = Ok({
-	status: 'idle',
-})
 
 export const roleTableConfig: DataTableConfig<HelperResultType<typeof roleHelpes, 'getAll'>> = {
 	rowId(item) {

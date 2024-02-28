@@ -1,8 +1,9 @@
 'use server'
 import { Err, Ok, toCapture } from '@vyke/results'
-import { type CreateRoleFormState, roleHelpes } from './roles'
+import type { FormState } from '../../components/Form/formState'
+import { roleHelpes } from './roles'
 
-export async function createRole(prev: CreateRoleFormState, data: FormData): Promise<CreateRoleFormState> {
+export async function createRole(prev: FormState, data: FormData): Promise<FormState> {
 	const rawFormData = {
 		name: String(data.get('name')),
 	}

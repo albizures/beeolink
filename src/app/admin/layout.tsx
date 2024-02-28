@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { FormModal } from '../../components/FModal/FormModal'
+import { ConfirmModal } from '../../components/Confirm/Confirm'
 
 export type AdminLayoutProps = {
 	children: React.ReactNode
@@ -14,6 +16,8 @@ export default function AdminLayout(props: AdminLayoutProps) {
 				{/* Page content here */}
 				{/* <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
 				{children}
+				<ConfirmModal />
+				<FormModal />
 			</div>
 			<div className="drawer-side max-w-60">
 				<label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>

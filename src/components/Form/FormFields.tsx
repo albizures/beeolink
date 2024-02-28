@@ -1,6 +1,6 @@
-import type { FormStateStatus } from '../CreateModal'
 import { Field, type FieldProps } from '../Field'
 import { Icon } from '../Icon'
+import type { FormStateStatus } from './formState'
 
 export type FieldDescriptor = FieldProps & {
 	type: 'text' | 'hidden'

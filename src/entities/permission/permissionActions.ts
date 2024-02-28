@@ -1,11 +1,12 @@
 'use server'
 import { Err, Ok, type Result, toCapture } from '@vyke/results'
 import { rootSola } from '../../sola'
-import { type CreatePermissionFormState, type UpdatePermissionFormState, permissionHelpers } from './permissions'
+import type { FormState } from '../../components/Form/formState'
+import { permissionHelpers } from './permissions'
 
 const sola = rootSola.withTag('permission-actions')
 
-export async function createPermission(prev: CreatePermissionFormState, data: FormData): Promise<CreatePermissionFormState> {
+export async function createPermission(prev: FormState, data: FormData): Promise<FormState> {
 	const rawFormData = {
 		name: String(data.get('name')),
 		description: String(data.get('description')),
@@ -44,7 +45,7 @@ export async function deletePermission(id: string): Promise<DeletePermissionResu
 	})
 }
 
-export async function updatePermission(prev: CreatePermissionFormState, data: FormData): Promise<UpdatePermissionFormState> {
+export async function updatePermission(prev: FormState, data: FormData): Promise<FormState> {
 	const rawFormData = {
 		id: data.has('id') ? String(data.get('id')) : undefined,
 		name: String(data.get('name')) || undefined,

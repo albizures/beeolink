@@ -1,6 +1,7 @@
 import type { FieldDescriptor } from '../../components/Form/FormFields'
+import type { Permission } from './permissions'
 
-export const permissionFields: Array<FieldDescriptor> = [
+export const createPermissionFields: Array<FieldDescriptor> = [
 	{
 		type: 'text',
 		isRequired: true,
@@ -16,3 +17,20 @@ export const permissionFields: Array<FieldDescriptor> = [
 		placeholder: 'Permission description',
 	},
 ]
+
+export function editPermissionFields(permission: Permission) {
+	return createPermissionFields.concat({
+		type: 'hidden',
+		name: 'id',
+		label: 'id',
+	}).map((field) => {
+		const name = field.name
+		if (name in permission) {
+			return {
+				...field,
+				defaultValue: permission[name as keyof Permission],
+			}
+		}
+		return field
+	})
+}

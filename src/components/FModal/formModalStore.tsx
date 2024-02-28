@@ -2,7 +2,8 @@ import { type StoreApi, create } from 'zustand'
 import { Ok } from '@vyke/results'
 import { type ModalState, createModalHelpers } from '../Modals/modalHelpers'
 import type { FieldDescriptor } from '../Form/FormFields'
-import type { FormAction, FormState } from '../Form/Form'
+import type { FormAction } from '../Form/Form'
+import type { FormState } from '../Form/formState'
 
 type FormModalState = ModalState & {
 	status: 'open' | 'closed'
@@ -10,6 +11,7 @@ type FormModalState = ModalState & {
 	action: FormAction
 	initialState: FormState
 	title: string
+	submitLabel: string
 	onSubmit?: (state: FormState) => void
 	formKey: number
 }
@@ -21,6 +23,7 @@ const defaultFormState: FormState = Ok({
 const defaultState: FormModalState = {
 	status: 'closed',
 	title: 'default title',
+	submitLabel: 'submit',
 	fields: [],
 	action: async () => {
 		return defaultFormState
@@ -44,7 +47,8 @@ function createHelpers(set: SetState, get: GetState) {
 	type OpenArgs = {
 		title: string
 		action: FormAction
-		initialState: FormState
+		initialState?: FormState
+		submitLabel: string
 		fields: Array<FieldDescriptor>
 		onSubmit?: (state: FormState) => void
 	}
