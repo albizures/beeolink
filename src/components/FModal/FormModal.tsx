@@ -8,6 +8,12 @@ import { FormFields } from '../Form/FormFields'
 import { formModalHelpers } from './formModalStore'
 
 export function FormModal() {
+	const formKey = formModalHelpers.useFormKey()
+
+	return <FormModalContent key={formKey} />
+}
+
+function FormModalContent() {
 	const formRef = React.useRef<HTMLFormElement>(null)
 	const modal = formModalHelpers.useModal()
 	const { action, initialState, title, fields } = modal

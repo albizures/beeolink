@@ -3,7 +3,7 @@ export type FieldProps = {
 	name: string
 	placeholder?: string
 	defaultValue?: string
-	isRequired: boolean
+	isRequired?: boolean
 	rightLabel?: string
 	bottomLeftLabel?: string
 	bottomRightLabel?: string

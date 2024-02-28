@@ -14,7 +14,6 @@ const sola = rootSola.withTag('permission-actions')
 const editPermissionFields = permissionFields.concat({
 	type: 'hidden',
 	name: 'id',
-	isRequired: false,
 	label: 'id',
 })
 

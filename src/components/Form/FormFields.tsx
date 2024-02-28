@@ -18,7 +18,14 @@ export function FormFields(props: FormsFieldProps) {
 		<div className="space-y-4 mt-4">
 			{fields.map((field, index) => {
 				if (field.type === 'hidden') {
-					return <input key={index} {...field} />
+					return (
+						<input
+							key={index}
+							type="hidden"
+							name={field.name}
+							defaultValue={field.defaultValue}
+						/>
+					)
 				}
 
 				return <Field key={index} {...field} />

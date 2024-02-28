@@ -11,6 +11,7 @@ type FormModalState = ModalState & {
 	initialState: FormState
 	title: string
 	onSubmit?: (state: FormState) => void
+	formKey: number
 }
 
 const defaultFormState: FormState = Ok({
@@ -25,6 +26,7 @@ const defaultState: FormModalState = {
 		return defaultFormState
 	},
 	initialState: defaultFormState,
+	formKey: 0,
 }
 
 type SetState = StoreApi<FormModalState>['setState']
@@ -33,7 +35,10 @@ type GetState = StoreApi<FormModalState>['getState']
 function createHelpers(set: SetState, get: GetState) {
 	const modalHelpers = createModalHelpers({
 		defaultState,
-
+		onClose() {
+			const { formKey } = get()
+			set({ formKey: formKey + 1 })
+		},
 	}, set, get)
 
 	type OpenArgs = {
@@ -69,8 +74,17 @@ function createHelpers(set: SetState, get: GetState) {
 		})
 		modalHelpers.open()
 	}
+
+	function close() {
+		const { formKey } = get()
+
+		modalHelpers.close()
+		set({ formKey: formKey + 1 })
+	}
+
 	return {
 		...modalHelpers,
+		close,
 		open,
 	}
 }
@@ -89,4 +103,7 @@ const useFormModalStore = create<FormModalState & { helpers: Helpers }>(
 export const formModalHelpers = {
 	...useFormModalStore.getState().helpers,
 	useModal: useFormModalStore,
+	useFormKey() {
+		return useFormModalStore((s) => s.formKey)
+	},
 }
