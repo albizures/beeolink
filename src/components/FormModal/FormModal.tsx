@@ -5,6 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { Icon } from '../Icon'
 import { FormFields } from '../Form/FormFields'
 import type { FormStateStatus } from '../Form/formState'
+import { FormFeedback } from '../Form/FormFeedback'
 import { formModalHelpers } from './formModalStore'
 
 export function FormModal() {
@@ -36,7 +37,11 @@ function FormModalContent() {
 					<h2 className="text-2xl font-bold text-center">
 						{title}
 					</h2>
-					<FormFields submitLabel={submitLabel} fields={fields} status={status} />
+					<FormFields fields={fields} />
+					<FormFeedback state={state} />
+					<div className="text-center pt-4">
+						<button type="submit" className="btn btn-primary">{submitLabel}</button>
+					</div>
 				</ModalBox>
 			</form>
 			<form method="dialog" className="modal-backdrop absolute w-full h-full">

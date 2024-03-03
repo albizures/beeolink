@@ -6,3 +6,5 @@ export type FormState = Result<{ status: FormStateStatus }, unknown>
 export const initialFormState: FormState = Ok({
 	status: 'idle',
 })
+
+export const failedFormStateValue = { status: 'failed' as const }

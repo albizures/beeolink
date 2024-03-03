@@ -1,39 +1,40 @@
-export type FieldProps = {
+export type SelectFieldProps = {
 	label: string
 	name: string
-	placeholder?: string
 	defaultValue?: string
 	isRequired?: boolean
 	rightLabel?: string
 	bottomLeftLabel?: string
 	bottomRightLabel?: string
+	children: React.ReactNode
 }
 
-export function Field(props: FieldProps) {
+export function SelectField(props: SelectFieldProps) {
 	const {
 		label,
 		name,
 		isRequired = false,
-		placeholder,
 		rightLabel,
 		bottomLeftLabel,
 		bottomRightLabel,
 		defaultValue,
+		children,
 	} = props
+
 	return (
 		<label className="form-control w-full">
 			<div className="label">
 				<span className="label-text font-bold">{label}</span>
 				{rightLabel && <span className="label-text-alt">{rightLabel}</span>}
 			</div>
-			<input
+			<select
 				required={isRequired}
 				defaultValue={defaultValue}
-				type="text"
 				name={name}
-				placeholder={placeholder}
-				className="input input-bordered w-full"
-			/>
+				className="select select-bordered"
+			>
+				{children}
+			</select>
 			{(bottomLeftLabel || bottomRightLabel) && (
 				<div className="label">
 					{bottomLeftLabel && <span className="label-text-alt">{bottomLeftLabel}</span>}
@@ -42,4 +43,15 @@ export function Field(props: FieldProps) {
 			)}
 		</label>
 	)
+}
+
+type SelectFieldOptionProps = React.HTMLAttributes<HTMLOptionElement> & {
+	value: string
+	label: string
+
+}
+
+export function SelectFieldOption(props: SelectFieldOptionProps) {
+	const { value, label } = props
+	return <option {...props} value={value}>{label}</option>
 }

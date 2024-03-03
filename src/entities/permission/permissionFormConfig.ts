@@ -22,10 +22,10 @@ export function updatePermissionFields(permission: Permission) {
 	return createPermissionFields.concat({
 		type: 'hidden',
 		name: 'id',
-		label: 'id',
+		value: permission.id,
 	}).map((field) => {
-		const name = field.name
-		if (name in permission) {
+		if ('name' in field && field.name in permission) {
+			const { name } = field
 			return {
 				...field,
 				defaultValue: permission[name as keyof Permission],

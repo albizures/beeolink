@@ -1,3 +1,5 @@
+// disable react/prop-types for className since is being validate by React.HTMLAttributes<Type>
+/* eslint-disable react/prop-types */
 import * as React from 'react'
 import { cn } from '../cn'
 

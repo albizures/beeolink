@@ -29,16 +29,23 @@ export function DataTable<TItem>(props: DataTableProps<TItem>) {
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{items.map((item, index) => {
-					const id = rowId(item, index)
-					return (
-						<TableRow key={id}>
-							{columns.map((column, index) => {
-								return <TableCell key={index}>{column.content(item, index)}</TableCell>
-							})}
+
+				{items.length === 0
+					? (
+						<TableRow>
+							<TableCell colSpan={columns.length}>No data</TableCell>
 						</TableRow>
-					)
-				})}
+						)
+					: items.map((item, index) => {
+						const id = rowId(item, index)
+						return (
+							<TableRow data-id={id} key={id}>
+								{columns.map((column, index) => {
+									return <TableCell key={index}>{column.content(item, index)}</TableCell>
+								})}
+							</TableRow>
+						)
+					})}
 			</TableBody>
 		</Table>
 	)
