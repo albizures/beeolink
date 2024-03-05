@@ -23,8 +23,6 @@ export default async function Roles() {
 
 	const permissions = await toUnwrapOr(permissionHelpers.getAll(), [])
 
-	console.log('user->', await permissionsByRoleHelpers.getByUser(session.user.id))
-
 	return (
 		<div className="p-10">
 			<FormModalBtn

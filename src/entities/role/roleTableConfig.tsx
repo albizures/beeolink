@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { DataTableConfig } from '../../components/DataTable'
 import { TableActions } from '../../components/TableActions'
 import type { HelperResultType } from '../../entityHelpers'
@@ -24,6 +25,21 @@ export const roleTableConfig: DataTableConfig<HelperResultType<typeof roleHelpes
 			},
 			content(item) {
 				return item.name
+			},
+		},
+		{
+			title() {
+				return 'Permissions'
+			},
+			content(item) {
+				return (
+					<Link
+						className="btn btn-link"
+						href={`?managePermissionsOf=${item.id}`}
+					>
+						edit permissions
+					</Link>
+				)
 			},
 		},
 		{

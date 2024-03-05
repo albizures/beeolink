@@ -2,16 +2,15 @@ import clsx from 'clsx'
 import { StaticModalBackdrop } from './StaticModalBackdrop'
 
 type StaticModalProps = {
-	status: 'open' | 'closed'
 	children: React.ReactNode
 }
 
 export function StaticModal(props: StaticModalProps) {
-	const { children, status } = props
+	const { children } = props
 
 	return (
 		<dialog
-			open={status === 'open'}
+			open
 			className="modal"
 		>
 			{children}

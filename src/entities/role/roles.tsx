@@ -16,6 +16,16 @@ export const roles = sqliteTable('roles', {
 export type Role = InferSelectModel<typeof roles>
 
 export const roleHelpes = {
+	getById: defineHelper({
+		input: z.string(),
+		async fn(args) {
+			const { db, input } = args
+
+			return to(db.query.roles.findFirst({
+				where: eq(roles.id, input),
+			}))
+		},
+	}),
 	create: defineHelper({
 		input: z.object({
 			name: z.string(),

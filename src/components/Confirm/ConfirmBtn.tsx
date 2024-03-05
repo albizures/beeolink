@@ -1,3 +1,4 @@
+'use client'
 import { type OnConfirm, confirmHelpers } from './confirmStore'
 
 type ConfirmBtnProps = {
