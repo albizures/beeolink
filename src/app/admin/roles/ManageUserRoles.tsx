@@ -10,6 +10,8 @@ import { StaticModalCloseBtn } from '../../../components/Modals/StaticModalClose
 import { addRoleToUser } from '../../../entities/rolesByUser/roleByUserActions'
 import type { Role } from '../../../entities/role/roles'
 import { userHelpers } from '../../../entities/users'
+import { BoxList, BoxListItem } from '../../../components/Lists/BoxList'
+import { DeleteBtn } from '../../../components/DeleteBtn'
 
 type ManageUserRolesModalProps = {
 	userId: string
@@ -59,11 +61,11 @@ export async function ManageUserRolesModal(props: ManageUserRolesModalProps) {
 						<p className="capitalize text-center">no roles for this user</p>
 						)
 					: (
-						<ul className="list-disc list-inside">
-							{roles.map((role) => {
-								return <RoleItem role={role} key={role.id} />
+						<BoxList>
+							{roles.map((role, index) => {
+								return <RoleItem userId={userId} isLast={roles.length - 1 === index} role={role} key={role.id} />
 							})}
-						</ul>
+						</BoxList>
 						)}
 			</StaticModalBox>
 		</StaticModal>
@@ -72,20 +74,47 @@ export async function ManageUserRolesModal(props: ManageUserRolesModalProps) {
 
 type RoleItemProps = {
 	role: Role
+	userId: string
+	isLast: boolean
 }
 
 async function RoleItem(props: RoleItemProps) {
-	const { role } = props
+	const { role, isLast, userId } = props
 
 	const permissions = await toUnwrapOr(permissionsByRoleHelpers.getByRole(role.id), [])
+
+	async function onDelete() {
+		'use server'
+		return roleByUserHelpers.delete({
+			roleId: role.id,
+			userId,
+		})
+	}
+
 	return (
-		<li>
-			{role.name}
-			<ul>
-				{permissions.map((permission) => {
-					return <li key={permission.id}>{permission.name}</li>
-				})}
-			</ul>
-		</li>
+		<BoxListItem isLast={isLast} className="flex justify-between items-center">
+			<div>
+				<p className="font-bold">{role.name}</p>
+
+				<p className="mt-1">
+					<span className="text-sm opacity-70">Permissions: </span>
+					{permissions.map((permission) => {
+						return <span className="badge badge-neutral" key={permission.id}>{permission.name}</span>
+					})}
+
+				</p>
+
+			</div>
+			<div>
+				<DeleteBtn
+					description="This action cannot be undone"
+					title="Are you sure?"
+					className="btn btn-error btn-sm btn-square btn-outline opacity-50 hover:opacity-100"
+					onDelete={onDelete}
+				>
+					<Icon name="delete" />
+				</DeleteBtn>
+			</div>
+		</BoxListItem>
 	)
 }

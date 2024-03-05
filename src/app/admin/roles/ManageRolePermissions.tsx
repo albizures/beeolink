@@ -6,6 +6,7 @@ import { type Permission, permissionHelpers } from '../../../entities/permission
 import { addPermissionToRoleFields } from '../../../entities/permissionsByRole/permissionsByRoleFormConfig'
 import { addPermissionToRole } from '../../../entities/permissionsByRole/permissionsByRoleActions'
 import { StaticModalCloseBtn } from '../../../components/Modals/StaticModalCloseBtn'
+import { BoxList, BoxListItem } from '../../../components/Lists/BoxList'
 import { FormFields } from '../../../components/Form/FormFields'
 import { roleHelpes } from '../../../entities/role/roles'
 import { DeleteBtn } from '../../../components/DeleteBtn'
@@ -63,7 +64,7 @@ export async function ManageRolePermissionsModal(props: ManageRolePermissionsMod
 						<p className="capitalize text-center">no permissions for this role</p>
 						)
 					: (
-						<ul>
+						<BoxList>
 							{permissions.map((permission, index) => {
 								return (
 									<PermissionItem
@@ -74,7 +75,7 @@ export async function ManageRolePermissionsModal(props: ManageRolePermissionsMod
 									/>
 								)
 							})}
-						</ul>
+						</BoxList>
 						)}
 			</StaticModalBox>
 		</StaticModal>
@@ -99,10 +100,7 @@ async function PermissionItem(props: PermissionItemProps) {
 	}
 
 	return (
-		<li className={clsx('flex justify-between items-center border-x border-base-300 border-t py-2 px-4', {
-			'border-b': isLast,
-		})}
-		>
+		<BoxListItem isLast={isLast} className="flex justify-between items-center">
 			<div>
 				<p className="font-bold">{permission.name}</p>
 				<p className="text-sm opacity-65">{permission.description}</p>
@@ -118,6 +116,6 @@ async function PermissionItem(props: PermissionItemProps) {
 					<Icon name="delete" />
 				</DeleteBtn>
 			</div>
-		</li>
+		</BoxListItem>
 	)
 }

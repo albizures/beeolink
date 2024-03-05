@@ -1,7 +1,7 @@
 import { primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { z } from 'zod'
 import { Ok } from '@vyke/results'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { roles } from '../role/roles'
 import { users } from '../users'
 import { defineHelper } from '../../entityHelpers'
@@ -19,6 +19,26 @@ export const roleByUsers = sqliteTable('user_roles', {
 })
 
 export const roleByUserHelpers = {
+	delete: defineHelper({
+		input: z.object({
+			roleId: z.string(),
+			userId: z.string(),
+		}),
+		fn: async (args) => {
+			const { db, input } = args
+
+			const result = await db
+				.delete(roleByUsers)
+				.where(and(
+					eq(roleByUsers.roleId, input.roleId),
+					eq(roleByUsers.userId, input.userId),
+				))
+
+			sola.log('remove result:', result)
+
+			return Ok(result)
+		},
+	}),
 	getRolesByUser: defineHelper({
 		input: z.string(),
 		async fn(args) {
