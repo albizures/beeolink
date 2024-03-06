@@ -1,9 +1,12 @@
-import { type ClientSafeProvider, getProviders } from 'next-auth/react'
-import { toUnwrapOr } from '@vyke/results'
+import { type ClientSafeProvider, type LiteralUnion, getProviders } from 'next-auth/react'
+import { to, unwrapOr } from '@vyke/results'
+import type { BuiltInProviderType } from '@auth/core/providers'
 import { SignInBtn } from '../../components/SignInBtn'
 
 export default async function Login() {
-	const providers = await toUnwrapOr(getProviders(), {} as Record<string, ClientSafeProvider>)
+	const providerResult = await to(getProviders())
+
+	const providers = unwrapOr(providerResult, {} as Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>)
 
 	return (
 		<div className="grid min-h-screen md:grid-cols-3 xl:grid-cols-4">
