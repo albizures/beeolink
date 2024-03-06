@@ -86,12 +86,18 @@ export const permissionsByRoleHelpers = {
 			const { db, input } = args
 
 			const result = await db
-				.select()
-				.from(users)
-				.innerJoin(roleByUsers, eq(users.id, roleByUsers.userId))
-				.where(eq(users.id, input))
+				.select({
+					name: permissions.name,
+				})
+				.from(roleByUsers)
+				.innerJoin(permissionsByRoles, eq(permissionsByRoles.roleId, roleByUsers.roleId))
+				.innerJoin(permissions, eq(permissions.id, permissionsByRoles.permissionId))
+				.where(eq(roleByUsers.userId, input))
+				.groupBy(permissions.id)
 
-			return Ok(result)
+			return Ok(result.map((item) => {
+				return item.name
+			}))
 		},
 	}),
 }

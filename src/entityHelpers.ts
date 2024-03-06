@@ -1,5 +1,5 @@
 import { Err, type Result, toCapture } from '@vyke/results'
-import { ZodObject, record, z } from 'zod'
+import { ZodObject, z } from 'zod'
 import type { Db } from './db'
 
 export type HelperFnArgs<TInput> = {
