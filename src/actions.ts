@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next'
 import { Ok, toUnwrapOr } from '@vyke/results'
 import { authOptions } from './auth'
-import { permissionsByRoleHelpers } from './entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from './entities/permissionsByRole/permissionsByRoles'
 import { formStateStatus } from './components/Form/formState'
 
 export function defineAction<TArgs extends Array<unknown>, TResult = void>(
@@ -17,7 +17,7 @@ export function defineAction<TArgs extends Array<unknown>, TResult = void>(
 			})
 		}
 
-		const userPermissions = await toUnwrapOr(permissionsByRoleHelpers.getByUser(session.user.id), [])
+		const userPermissions = await toUnwrapOr(rolePermissionHelper.getByUser(session.user.id), [])
 
 		for (const permission of permissions) {
 			if (!userPermissions.includes(permission)) {

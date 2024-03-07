@@ -1,10 +1,10 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { users } from './users'
+import { user } from './users'
 
-export const sessions = sqliteTable('session', {
+export const session = sqliteTable('session', {
 	sessionToken: text('sessionToken').notNull().primaryKey(),
 	userId: text('userId')
 		.notNull()
-		.references(() => users.id, { onDelete: 'cascade' }),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
 })

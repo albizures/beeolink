@@ -8,13 +8,13 @@ import { rootSola } from '../../sola'
 
 const sola = rootSola.withTag('permissions')
 
-export const permissions = sqliteTable('permissions', {
+export const permission = sqliteTable('permission', {
 	id: text('id').notNull().primaryKey().$defaultFn(() => uuidv4()),
 	name: text('name').notNull().unique(),
 	description: text('description').notNull().default(''),
 })
 
-export type Permission = InferSelectModel<typeof permissions>
+export type Permission = InferSelectModel<typeof permission>
 
 export const permissionHelpers = {
 	create: defineHelper({
@@ -26,7 +26,7 @@ export const permissionHelpers = {
 			const { db, input } = args
 
 			const result = await db
-				.insert(permissions)
+				.insert(permission)
 				.values({
 					...input,
 				})
@@ -50,11 +50,11 @@ export const permissionHelpers = {
 			sola.log(input)
 
 			const result = await db
-				.update(permissions)
+				.update(permission)
 				.set({
 					...input,
 				})
-				.where(eq(permissions.id, input.id))
+				.where(eq(permission.id, input.id))
 				.returning()
 				.get()
 
@@ -69,8 +69,8 @@ export const permissionHelpers = {
 			const { db, input } = args
 
 			const result = await db
-				.delete(permissions)
-				.where(eq(permissions.id, input))
+				.delete(permission)
+				.where(eq(permission.id, input))
 
 			sola.log('remove result:', result)
 
@@ -81,7 +81,7 @@ export const permissionHelpers = {
 		fn: (args) => {
 			const { db } = args
 
-			return to(db.query.permissions.findMany())
+			return to(db.query.permission.findMany())
 		},
 	}),
 }

@@ -8,12 +8,12 @@ import { rootSola } from '../../sola'
 
 const sola = rootSola.withTag('roles')
 
-export const roles = sqliteTable('roles', {
+export const role = sqliteTable('role', {
 	id: text('id').notNull().primaryKey().$defaultFn(() => uuidv4()),
 	name: text('name').notNull().unique(),
 })
 
-export type Role = InferSelectModel<typeof roles>
+export type Role = InferSelectModel<typeof role>
 
 export const roleHelpes = {
 	getById: defineHelper({
@@ -21,8 +21,8 @@ export const roleHelpes = {
 		async fn(args) {
 			const { db, input } = args
 
-			return to(db.query.roles.findFirst({
-				where: eq(roles.id, input),
+			return to(db.query.role.findFirst({
+				where: eq(role.id, input),
 			}))
 		},
 	}),
@@ -34,7 +34,7 @@ export const roleHelpes = {
 			const { db, input } = args
 
 			const result = await db
-				.insert(roles)
+				.insert(role)
 				.values({
 					...input,
 				})
@@ -50,7 +50,7 @@ export const roleHelpes = {
 		fn: (args) => {
 			const { db } = args
 
-			return to(db.query.roles.findMany())
+			return to(db.query.role.findMany())
 		},
 	}),
 	delete: defineHelper({
@@ -59,8 +59,8 @@ export const roleHelpes = {
 			const { db, input } = args
 
 			const result = await db
-				.delete(roles)
-				.where(eq(roles.id, input))
+				.delete(role)
+				.where(eq(role.id, input))
 
 			sola.log('remove result:', result)
 
@@ -78,11 +78,11 @@ export const roleHelpes = {
 			sola.log(input)
 
 			const result = await db
-				.update(roles)
+				.update(role)
 				.set({
 					...input,
 				})
-				.where(eq(roles.id, input.id))
+				.where(eq(role.id, input.id))
 				.returning()
 				.get()
 

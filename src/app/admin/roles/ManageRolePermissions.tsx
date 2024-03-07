@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FormWithAction, SubmitForm } from '../../../components/Form/Form'
 import { StaticModal, StaticModalBox } from '../../../components/Modals/StaticModal'
-import { permissionsByRoleHelpers } from '../../../entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from '../../../entities/permissionsByRole/permissionsByRoles'
 import { type Permission, permissionHelpers } from '../../../entities/permission/permissions'
 import { addPermissionToRoleFields } from '../../../entities/permissionsByRole/permissionsByRoleFormConfig'
 import { addPermissionToRole } from '../../../entities/permissionsByRole/permissionsByRoleActions'
@@ -29,7 +29,7 @@ export async function ManageRolePermissionsModal(props: ManageRolePermissionsMod
 	}
 	const { value: role } = roleResult
 	const { value: allPermissions } = allPermissionsResult
-	const permissionsResult = await permissionsByRoleHelpers.getByRole(roleId)
+	const permissionsResult = await rolePermissionHelper.getByRole(roleId)
 
 	if (!permissionsResult.ok) {
 		return null
@@ -93,7 +93,7 @@ async function PermissionItem(props: PermissionItemProps) {
 
 	async function onDelete() {
 		'use server'
-		return permissionsByRoleHelpers.delete({
+		return rolePermissionHelper.delete({
 			permissionId: permission.id,
 			roleId,
 		})

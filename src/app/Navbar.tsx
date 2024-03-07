@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { toUnwrapOr } from '@vyke/results'
 import { Icon } from '../components/Icon'
 import { authOptions } from '../auth'
-import { permissionsByRoleHelpers } from '../entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from '../entities/permissionsByRole/permissionsByRoles'
 import { SignOutBtn } from './SignOutBtn'
 
 export async function Navbar() {
@@ -59,7 +59,7 @@ type ProfileProps = {
 
 async function Profile(props: ProfileProps) {
 	const { userId } = props
-	const permissions = await toUnwrapOr(permissionsByRoleHelpers.getByUser(userId), [])
+	const permissions = await toUnwrapOr(rolePermissionHelper.getByUser(userId), [])
 
 	return (
 		<div className="dropdown dropdown-end">

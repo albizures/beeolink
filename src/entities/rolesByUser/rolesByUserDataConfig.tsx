@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import type { DataTableConfig } from '../../components/DataTable'
 import type { HelperResultType } from '../../entityHelpers'
-import type { roleByUserHelpers } from './roleByUsers'
+import type { userRoleHelpers } from './roleByUsers'
 
-export type GetAllResult = HelperResultType<typeof roleByUserHelpers, 'getAll'>
+export type GetAllResult = HelperResultType<typeof userRoleHelpers, 'getAll'>
 
 export const rolesByUsersTableConfig: DataTableConfig<GetAllResult> = {
 	rowId(item) {

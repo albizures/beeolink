@@ -2,9 +2,9 @@ import { toUnwrapOr } from '@vyke/results'
 import { Icon } from '../../../components/Icon'
 import { FormWithAction, SubmitForm } from '../../../components/Form/Form'
 import { StaticModal, StaticModalBox } from '../../../components/Modals/StaticModal'
-import { permissionsByRoleHelpers } from '../../../entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from '../../../entities/permissionsByRole/permissionsByRoles'
 import { addRoleToUserFields } from '../../../entities/rolesByUser/roleByUserFormConfig'
-import { roleByUserHelpers } from '../../../entities/rolesByUser/roleByUsers'
+import { userRoleHelpers } from '../../../entities/rolesByUser/roleByUsers'
 import { FormFields } from '../../../components/Form/FormFields'
 import { StaticModalCloseBtn } from '../../../components/Modals/StaticModalCloseBtn'
 import { addRoleToUser } from '../../../entities/rolesByUser/roleByUserActions'
@@ -26,7 +26,7 @@ export async function ManageUserRolesModal(props: ManageUserRolesModalProps) {
 		return null
 	}
 	const { value: user } = userResult
-	const rolesResult = await roleByUserHelpers.getRolesByUser(userId)
+	const rolesResult = await userRoleHelpers.getRolesByUser(userId)
 
 	if (!rolesResult.ok) {
 		return null
@@ -81,11 +81,11 @@ type RoleItemProps = {
 async function RoleItem(props: RoleItemProps) {
 	const { role, isLast, userId } = props
 
-	const permissions = await toUnwrapOr(permissionsByRoleHelpers.getByRole(role.id), [])
+	const permissions = await toUnwrapOr(rolePermissionHelper.getByRole(role.id), [])
 
 	async function onDelete() {
 		'use server'
-		return roleByUserHelpers.delete({
+		return userRoleHelpers.delete({
 			roleId: role.id,
 			userId,
 		})

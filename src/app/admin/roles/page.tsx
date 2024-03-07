@@ -6,7 +6,7 @@ import { createRole } from '../../../entities/role/roleActions'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { Icon } from '../../../components/Icon'
 import { roleTableConfig } from '../../../entities/role/roleTableConfig'
-import { roleByUserHelpers } from '../../../entities/rolesByUser/roleByUsers'
+import { userRoleHelpers } from '../../../entities/rolesByUser/roleByUsers'
 import { rolesByUsersTableConfig } from '../../../entities/rolesByUser/rolesByUserDataConfig'
 import { ManageUserRolesModal } from './ManageUserRoles'
 import { ManageRolePermissionsModal } from './ManageRolePermissions'
@@ -18,7 +18,7 @@ type RolesProps = {
 export default async function Roles(props: RolesProps) {
 	const { searchParams } = props
 	const roles = await toUnwrapOr(roleHelpes.getAll(), [])
-	const rolesByUsers = await toUnwrapOr(roleByUserHelpers.getAll(), [])
+	const rolesByUsers = await toUnwrapOr(userRoleHelpers.getAll(), [])
 
 	const userId = searchParams?.manageRolesOf
 	const roleId = searchParams?.managePermissionsOf
