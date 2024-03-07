@@ -1,18 +1,15 @@
 'use server'
-import { Err, Ok, type Result, toCapture } from '@vyke/results'
+import { Err, Ok, toCapture } from '@vyke/results'
 import { getServerSession } from 'next-auth'
 import { rootSola } from '../../sola'
 import type { FormState } from '../../components/Form/formState'
 import { authOptions } from '../../auth'
+import { defineAction } from '../../actions'
 import { permissionHelpers } from './permissions'
 
 const sola = rootSola.withTag('permission-actions')
 
-export async function createPermission(prev: FormState, data: FormData): Promise<FormState> {
-	const session = await getServerSession(authOptions)
-
-	sola.log('creating permission session', session)
-
+export const createPermission = defineAction(async (prev: FormState, data: FormData): Promise<FormState> => {
 	const rawFormData = {
 		name: String(data.get('name')),
 		description: String(data.get('description')),
@@ -31,7 +28,7 @@ export async function createPermission(prev: FormState, data: FormData): Promise
 	return Err({
 		status: 'failed',
 	})
-}
+}, [])
 
 export async function deletePermission(id: string): Promise<FormState> {
 	const session = await getServerSession(authOptions)

@@ -7,7 +7,6 @@ import { createPermission } from '../../../entities/permission/permissionActions
 import { Icon } from '../../../components/Icon'
 import { createPermissionFields } from '../../../entities/permission/permissionFormConfig'
 import { permissionTableConfig } from '../../../entities/permission/permissionTableConfig'
-import { permissionsByRoleHelpers } from '../../../entities/permissionsByRole/permissionsByRoles'
 import { authOptions } from '../../../auth'
 
 export default async function Roles() {

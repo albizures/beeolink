@@ -1,6 +1,13 @@
 import { Ok, type Result } from '@vyke/results'
 
-export type FormStateStatus = 'idle' | 'success' | 'failed' | 'loading'
+export const formStateStatus = {
+	IDLE: 'idle',
+	SUCCESS: 'success',
+	FAILED: 'failed',
+	LOADING: 'loading',
+} as const
+
+export type FormStateStatus = (typeof formStateStatus)[keyof typeof formStateStatus]
 export type FormState = Result<{ status: FormStateStatus }, unknown>
 
 export const initialFormState: FormState = Ok({
