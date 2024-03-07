@@ -5,7 +5,7 @@ import { rootSola } from '../../sola'
 import type { FormState } from '../../components/Form/formState'
 import { authOptions } from '../../auth'
 import { defineAction } from '../../actions'
-import { permissionHelpers } from './permissions'
+import { permissionHelpers } from './permission'
 
 const sola = rootSola.withTag('permission-actions')
 

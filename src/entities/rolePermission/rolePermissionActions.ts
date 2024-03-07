@@ -2,7 +2,7 @@
 import { Err, Ok } from '@vyke/results'
 import type { FormState } from '../../components/Form/formState'
 import { rootSola } from '../../sola'
-import { rolePermissionHelper } from './permissionsByRoles'
+import { rolePermissionHelper } from './rolePermission'
 
 const sola = rootSola.withTag('rolePermissionActions')
 

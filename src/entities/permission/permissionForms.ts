@@ -1,5 +1,5 @@
 import type { FieldDescriptor } from '../../components/Form/FormFields'
-import type { Permission } from './permissions'
+import type { Permission } from './permission'
 
 export const createPermissionFields: Array<FieldDescriptor> = [
 	{

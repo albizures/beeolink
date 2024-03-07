@@ -1,5 +1,5 @@
 import type { FieldDescriptor } from '../../components/Form/FormFields'
-import type { Role } from '../role/roles'
+import type { Role } from '../role/role'
 import type { User } from '../users'
 
 export function addRoleToUserFields(user: User, roles: Array<Role>): Array<FieldDescriptor> {

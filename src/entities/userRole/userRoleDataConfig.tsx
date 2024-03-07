@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { DataTableConfig } from '../../components/DataTable'
 import type { HelperResultType } from '../../entityHelpers'
-import type { userRoleHelpers } from './roleByUsers'
+import type { userRoleHelpers } from './userRole'
 
 export type GetAllResult = HelperResultType<typeof userRoleHelpers, 'getAll'>
 

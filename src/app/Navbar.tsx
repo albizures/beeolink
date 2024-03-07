@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { toUnwrapOr } from '@vyke/results'
 import { Icon } from '../components/Icon'
 import { authOptions } from '../auth'
-import { rolePermissionHelper } from '../entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from '../entities/rolePermission/rolePermission'
 import { SignOutBtn } from './SignOutBtn'
 
 export async function Navbar() {

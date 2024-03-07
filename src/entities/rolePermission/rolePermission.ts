@@ -2,12 +2,11 @@ import { primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { z } from 'zod'
 import { and, eq } from 'drizzle-orm'
 import { Ok } from '@vyke/results'
-import { permission } from '../permission/permissions'
-import { userRole } from '../rolesByUser/roleByUsers'
+import { permission } from '../permission/permission'
+import { userRole } from '../userRole/userRole'
 import { defineHelper } from '../../entityHelpers'
 import { rootSola } from '../../sola'
-import { role } from '../role/roles'
-import { user } from '../users'
+import { role } from '../role/role'
 
 const sola = rootSola.withTag('rolePermission')
 

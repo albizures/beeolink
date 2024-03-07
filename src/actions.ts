@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next'
 import { Ok, toUnwrapOr } from '@vyke/results'
 import { authOptions } from './auth'
-import { rolePermissionHelper } from './entities/permissionsByRole/permissionsByRoles'
+import { rolePermissionHelper } from './entities/rolePermission/rolePermission'
 import { formStateStatus } from './components/Form/formState'
 
 export function defineAction<TArgs extends Array<unknown>, TResult = void>(
