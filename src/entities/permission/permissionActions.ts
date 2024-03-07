@@ -28,9 +28,9 @@ export const createPermission = defineAction(async (prev: FormState, data: FormD
 	return Err({
 		status: 'failed',
 	})
-}, [])
+}, ['MANAGE_PERMISSION'])
 
-export async function deletePermission(id: string): Promise<FormState> {
+export const deletePermission = defineAction(async (id: string): Promise<FormState> => {
 	const session = await getServerSession(authOptions)
 
 	sola.log('delete permission session', session)
@@ -47,9 +47,9 @@ export async function deletePermission(id: string): Promise<FormState> {
 	return Err({
 		status: 'failed',
 	})
-}
+}, ['MANAGE_PERMISSION'])
 
-export async function updatePermission(prev: FormState, data: FormData): Promise<FormState> {
+export const updatePermission = defineAction(async (prev: FormState, data: FormData): Promise<FormState> => {
 	const session = await getServerSession(authOptions)
 
 	sola.log('edit permission session', session)
@@ -81,4 +81,4 @@ export async function updatePermission(prev: FormState, data: FormData): Promise
 	return Ok({
 		status: 'success',
 	})
-}
+}, ['MANAGE_PERMISSION'])

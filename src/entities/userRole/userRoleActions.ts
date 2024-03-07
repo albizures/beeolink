@@ -2,11 +2,12 @@
 import { Err, Ok } from '@vyke/results'
 import type { FormState } from '../../components/Form/formState'
 import { rootSola } from '../../sola'
+import { defineAction } from '../../actions'
 import { userRoleHelpers } from './userRole'
 
 const sola = rootSola.withTag('userRoleActions')
 
-export async function addRoleToUser(prev: FormState, data: FormData): Promise<FormState> {
+export const addRoleToUser = defineAction(async (prev: FormState, data: FormData): Promise<FormState> => {
 	const result = await userRoleHelpers.addRole.formData(data)
 
 	if (result.ok) {
@@ -19,4 +20,4 @@ export async function addRoleToUser(prev: FormState, data: FormData): Promise<Fo
 	return Err({
 		status: 'failed',
 	})
-}
+}, ['MANAGE_PERMISSION', 'MANAGE_ROLE'])
