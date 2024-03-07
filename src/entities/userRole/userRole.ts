@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { Ok } from '@vyke/results'
 import { and, eq } from 'drizzle-orm'
 import { role } from '../role/role'
-import { user } from '../users'
+import { user } from '../user/user'
 import { defineHelper } from '../../entityHelpers'
 import { rootSola } from '../../sola'
 

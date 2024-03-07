@@ -6,8 +6,8 @@ import { createRole } from '../../../entities/role/roleActions'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { Icon } from '../../../components/Icon'
 import { roleTableConfig } from '../../../entities/role/roleDataConfig'
-import { userRoleHelpers } from '../../../entities/userRole/userRole'
-import { rolesByUsersTableConfig } from '../../../entities/userRole/userRoleDataConfig'
+import { userHelpers } from '../../../entities/user/user'
+import { usersTableConfig } from '../../../entities/user/userDataConfig'
 import { ManageUserRolesModal } from './ManageUserRoles'
 import { ManageRolePermissionsModal } from './ManageRolePermissions'
 
@@ -18,7 +18,7 @@ type RolesProps = {
 export default async function Roles(props: RolesProps) {
 	const { searchParams } = props
 	const roles = await toUnwrapOr(roleHelpes.getAll(), [])
-	const rolesByUsers = await toUnwrapOr(userRoleHelpers.getAll(), [])
+	const users = await toUnwrapOr(userHelpers.getAllUsers(), [])
 
 	const userId = searchParams?.manageRolesOf
 	const roleId = searchParams?.managePermissionsOf
@@ -41,7 +41,7 @@ export default async function Roles(props: RolesProps) {
 
 			{userId && <ManageUserRolesModal allRoles={roles} userId={userId} />}
 			{roleId && <ManageRolePermissionsModal roleId={roleId} />}
-			<DataTable config={rolesByUsersTableConfig} items={rolesByUsers} />
+			<DataTable config={usersTableConfig} items={users} />
 		</div>
 	)
 }

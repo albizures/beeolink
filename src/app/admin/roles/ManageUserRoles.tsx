@@ -9,7 +9,7 @@ import { FormFields } from '../../../components/Form/FormFields'
 import { StaticModalCloseBtn } from '../../../components/Modals/StaticModalCloseBtn'
 import { addRoleToUser } from '../../../entities/userRole/userRoleActions'
 import type { Role } from '../../../entities/role/role'
-import { userHelpers } from '../../../entities/users'
+import { userHelpers } from '../../../entities/user/user'
 import { BoxList, BoxListItem } from '../../../components/Lists/BoxList'
 import { DeleteBtn } from '../../../components/DeleteBtn'
 

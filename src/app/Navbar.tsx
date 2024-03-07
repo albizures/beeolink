@@ -4,6 +4,7 @@ import { toUnwrapOr } from '@vyke/results'
 import { Icon } from '../components/Icon'
 import { authOptions } from '../auth'
 import { rolePermissionHelper } from '../entities/rolePermission/rolePermission'
+import { appPermissions } from '../entities/permission/permissions'
 import { SignOutBtn } from './SignOutBtn'
 
 export async function Navbar() {
@@ -74,7 +75,7 @@ async function Profile(props: ProfileProps) {
 						Profile
 					</a>
 				</li>
-				{permissions.includes('admin') && (
+				{permissions.includes(appPermissions.ADMIN) && (
 					<li>
 						<Link href="/admin/roles">Admin</Link>
 					</li>

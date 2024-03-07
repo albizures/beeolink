@@ -1,6 +1,6 @@
 import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import type { AdapterAccount } from '@auth/core/adapters'
-import { user } from './users'
+import { user } from './user/user'
 
 export const account = sqliteTable('account',
 	{

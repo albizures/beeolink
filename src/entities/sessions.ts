@@ -1,5 +1,5 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { user } from './users'
+import { user } from './user/user'
 
 export const session = sqliteTable('session', {
 	sessionToken: text('sessionToken').notNull().primaryKey(),

@@ -2,7 +2,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { to } from '@vyke/results'
 import { type InferSelectModel, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { defineHelper } from '../entityHelpers'
+import { defineHelper } from '../../entityHelpers'
 
 export const user = sqliteTable('user', {
 	id: text('id').notNull().primaryKey(),

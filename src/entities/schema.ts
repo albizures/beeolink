@@ -1,4 +1,4 @@
-export { user } from './users'
+export { user } from './user/user'
 export { account } from './accounts'
 export { session } from './sessions'
 export { verificationToken } from './verificationTokens'
