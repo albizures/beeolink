@@ -1,9 +1,18 @@
 import { type ClientSafeProvider, type LiteralUnion, getProviders } from 'next-auth/react'
 import { to, unwrapOr } from '@vyke/results'
 import type { BuiltInProviderType } from '@auth/core/providers'
+import { getServerSession } from 'next-auth/next'
+import { redirect } from 'next/navigation'
 import { SignInBtn } from '../../components/SignInBtn'
+import { authOptions } from '../../auth'
 
 export default async function Login() {
+	const session = await getServerSession(authOptions)
+
+	if (session) {
+		return redirect('/')
+	}
+
 	const providerResult = await to(getProviders())
 
 	const providers = unwrapOr(providerResult, {} as Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>)

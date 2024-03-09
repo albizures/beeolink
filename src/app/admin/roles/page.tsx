@@ -4,12 +4,12 @@ import { DataTable } from '../../../components/DataTable'
 import { createRoleFields } from '../../../entities/role/roleForms'
 import { createRole } from '../../../entities/role/roleActions'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
-import { Icon } from '../../../components/Icon'
 import { roleTableConfig } from '../../../entities/role/roleDataConfig'
 import { userHelpers } from '../../../entities/user/user'
 import { usersTableConfig } from '../../../entities/user/userDataConfig'
-import { ManageUserRolesModal } from './ManageUserRoles'
+import { Icon } from '../../../components/Icon'
 import { ManageRolePermissionsModal } from './ManageRolePermissions'
+import { ManageUserRolesModal } from './ManageUserRoles'
 
 type RolesProps = {
 	searchParams: Record<string, string> | undefined
