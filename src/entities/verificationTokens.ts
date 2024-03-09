@@ -1,6 +1,6 @@
 import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-export const verificationTokens = sqliteTable(
+export const verificationToken = sqliteTable(
 	'verificationToken',
 	{
 		identifier: text('identifier').notNull(),

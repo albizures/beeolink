@@ -1,15 +1,15 @@
 import { toUnwrapOr } from '@vyke/results'
-import { roleHelpes } from '../../../entities/role/roles'
+import { roleHelpes } from '../../../entities/role/role'
 import { DataTable } from '../../../components/DataTable'
-import { createRoleFields } from '../../../entities/role/roleFormConfig'
+import { createRoleFields } from '../../../entities/role/roleForms'
 import { createRole } from '../../../entities/role/roleActions'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
+import { roleTableConfig } from '../../../entities/role/roleDataConfig'
+import { userHelpers } from '../../../entities/user/user'
+import { usersTableConfig } from '../../../entities/user/userDataConfig'
 import { Icon } from '../../../components/Icon'
-import { roleTableConfig } from '../../../entities/role/roleTableConfig'
-import { roleByUserHelpers } from '../../../entities/rolesByUser/roleByUsers'
-import { rolesByUsersTableConfig } from '../../../entities/rolesByUser/rolesByUserDataConfig'
-import { ManageUserRolesModal } from './ManageUserRoles'
 import { ManageRolePermissionsModal } from './ManageRolePermissions'
+import { ManageUserRolesModal } from './ManageUserRoles'
 
 type RolesProps = {
 	searchParams: Record<string, string> | undefined
@@ -18,7 +18,7 @@ type RolesProps = {
 export default async function Roles(props: RolesProps) {
 	const { searchParams } = props
 	const roles = await toUnwrapOr(roleHelpes.getAll(), [])
-	const rolesByUsers = await toUnwrapOr(roleByUserHelpers.getAll(), [])
+	const users = await toUnwrapOr(userHelpers.getAllUsers(), [])
 
 	const userId = searchParams?.manageRolesOf
 	const roleId = searchParams?.managePermissionsOf
@@ -41,7 +41,7 @@ export default async function Roles(props: RolesProps) {
 
 			{userId && <ManageUserRolesModal allRoles={roles} userId={userId} />}
 			{roleId && <ManageRolePermissionsModal roleId={roleId} />}
-			<DataTable config={rolesByUsersTableConfig} items={rolesByUsers} />
+			<DataTable config={usersTableConfig} items={users} />
 		</div>
 	)
 }

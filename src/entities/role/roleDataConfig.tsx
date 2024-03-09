@@ -3,8 +3,8 @@ import type { DataTableConfig } from '../../components/DataTable'
 import { TableActions } from '../../components/TableActions'
 import type { HelperResultType } from '../../entityHelpers'
 import { deleteRole, updateRole } from './roleActions'
-import { updateRoleFields } from './roleFormConfig'
-import type { roleHelpes } from './roles'
+import { updateRoleFields } from './roleForms'
+import type { roleHelpes } from './role'
 
 export const roleTableConfig: DataTableConfig<HelperResultType<typeof roleHelpes, 'getAll'>> = {
 	rowId(item) {

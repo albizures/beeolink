@@ -1,10 +1,10 @@
-export { users } from './users'
-export { accounts } from './accounts'
-export { sessions } from './sessions'
-export { verificationTokens } from './verificationTokens'
+export { user } from './user/user'
+export { account } from './accounts'
+export { session } from './sessions'
+export { verificationToken } from './verificationTokens'
 
-export { roles } from './role/roles'
-export { permissions } from './permission/permissions'
+export { role } from './role/role'
+export { permission } from './permission/permission'
 
-export { permissionsByRoles } from './permissionsByRole/permissionsByRoles'
-export { roleByUsers } from './rolesByUser/roleByUsers'
+export { rolePermission } from './rolePermission/rolePermission'
+export { userRole } from './userRole/userRole'

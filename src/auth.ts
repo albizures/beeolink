@@ -5,7 +5,7 @@ import type { Adapter } from 'next-auth/adapters'
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next'
 import { env } from './env.mjs'
 import { db } from './db'
-import type { User } from './entities/users'
+import type { User } from './entities/user/user'
 
 export const authOptions: NextAuthOptions = {
 	// it seems Adapter form next-auth and @auth/drizzle-adapter are different 🤷‍♂️

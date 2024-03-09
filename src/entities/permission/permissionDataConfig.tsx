@@ -2,8 +2,8 @@ import type { DataTableConfig } from '../../components/DataTable'
 import { TableActions } from '../../components/TableActions'
 import type { HelperResultType } from '../../entityHelpers'
 import { deletePermission, updatePermission } from './permissionActions'
-import { updatePermissionFields } from './permissionFormConfig'
-import type { permissionHelpers } from './permissions'
+import { updatePermissionFields } from './permissionForms'
+import type { permissionHelpers } from './permission'
 
 export type GetAllResult = HelperResultType<typeof permissionHelpers, 'getAll'>
 

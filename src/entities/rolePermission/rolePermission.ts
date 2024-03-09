@@ -2,25 +2,24 @@ import { primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { z } from 'zod'
 import { and, eq } from 'drizzle-orm'
 import { Ok } from '@vyke/results'
-import { permissions } from '../permission/permissions'
-import { roleByUsers } from '../rolesByUser/roleByUsers'
+import { permission } from '../permission/permission'
+import { userRole } from '../userRole/userRole'
 import { defineHelper } from '../../entityHelpers'
 import { rootSola } from '../../sola'
-import { roles } from '../role/roles'
-import { users } from '../users'
+import { role } from '../role/role'
 
-const sola = rootSola.withTag('permissionsByRoles')
+const sola = rootSola.withTag('rolePermission')
 
-export const permissionsByRoles = sqliteTable('role_permissions', {
-	permissionId: text('permissionId').references(() => permissions.id),
-	roleId: text('roleId').references(() => roles.id),
+export const rolePermission = sqliteTable('role_permission', {
+	permissionId: text('permissionId').references(() => permission.id),
+	roleId: text('roleId').references(() => role.id),
 }, (table) => {
 	return {
 		pk: primaryKey({ columns: [table.permissionId, table.roleId] }),
 	}
 })
 
-export const permissionsByRoleHelpers = {
+export const rolePermissionHelper = {
 	delete: defineHelper({
 		input: z.object({
 			roleId: z.string(),
@@ -30,10 +29,10 @@ export const permissionsByRoleHelpers = {
 			const { db, input } = args
 
 			const result = await db
-				.delete(permissionsByRoles)
+				.delete(rolePermission)
 				.where(and(
-					eq(permissionsByRoles.roleId, input.roleId),
-					eq(permissionsByRoles.permissionId, input.permissionId),
+					eq(rolePermission.roleId, input.roleId),
+					eq(rolePermission.permissionId, input.permissionId),
 				))
 
 			sola.log('remove result:', result)
@@ -52,7 +51,7 @@ export const permissionsByRoleHelpers = {
 			sola.log('add input', input)
 
 			const result = await db
-				.insert(permissionsByRoles)
+				.insert(rolePermission)
 				.values({
 					...input,
 				})
@@ -68,14 +67,14 @@ export const permissionsByRoleHelpers = {
 
 			const result = await db
 				.select({
-					id: permissions.id,
-					name: permissions.name,
-					description: permissions.description,
+					id: permission.id,
+					name: permission.name,
+					description: permission.description,
 				})
-				.from(permissionsByRoles)
-				.innerJoin(roles, eq(roles.id, permissionsByRoles.roleId))
-				.innerJoin(permissions, eq(permissions.id, permissionsByRoles.permissionId))
-				.where(eq(roles.id, input))
+				.from(rolePermission)
+				.innerJoin(role, eq(role.id, rolePermission.roleId))
+				.innerJoin(permission, eq(permission.id, rolePermission.permissionId))
+				.where(eq(role.id, input))
 
 			return Ok(result)
 		},
@@ -86,12 +85,18 @@ export const permissionsByRoleHelpers = {
 			const { db, input } = args
 
 			const result = await db
-				.select()
-				.from(users)
-				.innerJoin(roleByUsers, eq(users.id, roleByUsers.userId))
-				.where(eq(users.id, input))
+				.select({
+					name: permission.name,
+				})
+				.from(userRole)
+				.innerJoin(rolePermission, eq(rolePermission.roleId, userRole.roleId))
+				.innerJoin(permission, eq(permission.id, rolePermission.permissionId))
+				.where(eq(userRole.userId, input))
+				.groupBy(permission.id)
 
-			return Ok(result)
+			return Ok(result.map((item) => {
+				return item.name
+			}))
 		},
 	}),
 }

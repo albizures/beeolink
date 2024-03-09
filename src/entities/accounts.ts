@@ -1,12 +1,12 @@
 import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import type { AdapterAccount } from '@auth/core/adapters'
-import { users } from './users'
+import { user } from './user/user'
 
-export const accounts = sqliteTable('account',
+export const account = sqliteTable('account',
 	{
 		userId: text('userId')
 			.notNull()
-			.references(() => users.id, { onDelete: 'cascade' }),
+			.references(() => user.id, { onDelete: 'cascade' }),
 		type: text('type').$type<AdapterAccount['type']>().notNull(),
 		provider: text('provider').notNull(),
 		providerAccountId: text('providerAccountId').notNull(),

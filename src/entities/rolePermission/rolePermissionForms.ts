@@ -1,6 +1,6 @@
 import type { FieldDescriptor } from '../../components/Form/FormFields'
-import type { Permission } from '../permission/permissions'
-import type { Role } from '../role/roles'
+import type { Permission } from '../permission/permission'
+import type { Role } from '../role/role'
 
 export function addPermissionToRoleFields(role: Role, permissions: Array<Permission>): Array<FieldDescriptor> {
 	return [

@@ -2,11 +2,12 @@
 import { Err, Ok, toCapture } from '@vyke/results'
 import type { FormState } from '../../components/Form/formState'
 import { rootSola } from '../../sola'
-import { roleHelpes } from './roles'
+import { defineAction } from '../../actions'
+import { roleHelpes } from './role'
 
 const sola = rootSola.withTag('role-actions')
 
-export async function createRole(prev: FormState, data: FormData): Promise<FormState> {
+export const createRole = defineAction(async (prev: FormState, data: FormData): Promise<FormState> => {
 	const rawFormData = {
 		name: String(data.get('name')),
 	}
@@ -24,9 +25,9 @@ export async function createRole(prev: FormState, data: FormData): Promise<FormS
 	return Err({
 		status: 'failed',
 	})
-}
+}, ['MANAGE_ROLE'])
 
-export async function deleteRole(id: string): Promise<FormState> {
+export const deleteRole = defineAction(async (id: string): Promise<FormState> => {
 	const result = await toCapture(roleHelpes.delete(id))
 
 	if (result.ok) {
@@ -40,9 +41,9 @@ export async function deleteRole(id: string): Promise<FormState> {
 	return Err({
 		status: 'failed',
 	})
-}
+}, ['MANAGE_ROLE'])
 
-export async function updateRole(prev: FormState, data: FormData): Promise<FormState> {
+export const updateRole = defineAction(async (prev: FormState, data: FormData): Promise<FormState> => {
 	const rawFormData = {
 		id: data.has('id') ? String(data.get('id')) : undefined,
 		name: String(data.get('name')) || undefined,
@@ -71,4 +72,4 @@ export async function updateRole(prev: FormState, data: FormData): Promise<FormS
 	return Ok({
 		status: 'success',
 	})
-}
+}, ['MANAGE_ROLE'])

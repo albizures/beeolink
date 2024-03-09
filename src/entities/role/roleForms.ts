@@ -1,5 +1,5 @@
 import type { FieldDescriptor } from '../../components/Form/FormFields'
-import type { Role } from './roles'
+import type { Role } from './role'
 
 export const createRoleFields: Array<FieldDescriptor> = [
 	{
@@ -15,10 +15,10 @@ export function updateRoleFields(role: Role) {
 	return createRoleFields.concat({
 		type: 'hidden',
 		name: 'id',
-		label: 'id',
+		value: role.id,
 	}).map((field) => {
-		const name = field.name
-		if (name in role) {
+		if ('name' in field && field.name in role) {
+			const name = field.name
 			return {
 				...field,
 				defaultValue: role[name as keyof Role],

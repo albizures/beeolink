@@ -1,13 +1,12 @@
 import { toUnwrapOr } from '@vyke/results'
 import { getServerSession } from 'next-auth'
-import { permissionHelpers } from '../../../entities/permission/permissions'
+import { permissionHelpers } from '../../../entities/permission/permission'
 import { DataTable } from '../../../components/DataTable'
 import { FormModalBtn } from '../../../components/FormModal/FormModalBtn'
 import { createPermission } from '../../../entities/permission/permissionActions'
 import { Icon } from '../../../components/Icon'
-import { createPermissionFields } from '../../../entities/permission/permissionFormConfig'
-import { permissionTableConfig } from '../../../entities/permission/permissionTableConfig'
-import { permissionsByRoleHelpers } from '../../../entities/permissionsByRole/permissionsByRoles'
+import { createPermissionFields } from '../../../entities/permission/permissionForms'
+import { permissionTableConfig } from '../../../entities/permission/permissionDataConfig'
 import { authOptions } from '../../../auth'
 
 export default async function Roles() {

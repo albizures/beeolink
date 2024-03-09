@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { getServerSession } from 'next-auth/next'
+import { toUnwrapOr } from '@vyke/results'
 import { Icon } from '../components/Icon'
 import { authOptions } from '../auth'
+import { rolePermissionHelper } from '../entities/rolePermission/rolePermission'
+import { appPermissions } from '../entities/permission/permissions'
 import { SignOutBtn } from './SignOutBtn'
 
 export async function Navbar() {
@@ -22,7 +25,7 @@ export async function Navbar() {
 				</div>
 			</div>
 			<div className="navbar-center">
-				<a className="btn btn-ghost text-xl">BeeoLink</a>
+				<Link href="/" className="btn btn-ghost text-xl">BeeoLink</Link>
 			</div>
 			<div className="navbar-end">
 				<button className="btn btn-ghost btn-circle">
@@ -37,7 +40,7 @@ export async function Navbar() {
 				</button>
 				{session
 					? (
-						<Profile />
+						<Profile userId={session.user.id} />
 						)
 					: (
 						<Link className="btn btn-ghost" href="/login">
@@ -51,7 +54,14 @@ export async function Navbar() {
 	)
 }
 
-function Profile() {
+type ProfileProps = {
+	userId: string
+}
+
+async function Profile(props: ProfileProps) {
+	const { userId } = props
+	const permissions = await toUnwrapOr(rolePermissionHelper.getByUser(userId), [])
+
 	return (
 		<div className="dropdown dropdown-end">
 			<div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -63,10 +73,13 @@ function Profile() {
 				<li>
 					<a className="justify-between">
 						Profile
-						<span className="badge">New</span>
 					</a>
 				</li>
-				<li><a>Settings</a></li>
+				{permissions.includes(appPermissions.ADMIN) && (
+					<li>
+						<Link href="/admin/roles">Admin</Link>
+					</li>
+				)}
 				<li>
 					<SignOutBtn />
 				</li>

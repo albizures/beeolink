@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import type { DataTableConfig } from '../../components/DataTable'
 import type { HelperResultType } from '../../entityHelpers'
-import type { roleByUserHelpers } from './roleByUsers'
+import type { userHelpers } from './user'
 
-export type GetAllResult = HelperResultType<typeof roleByUserHelpers, 'getAll'>
+export type GetAllResult = HelperResultType<typeof userHelpers, 'getAllUsers'>
 
-export const rolesByUsersTableConfig: DataTableConfig<GetAllResult> = {
+export const usersTableConfig: DataTableConfig<GetAllResult> = {
 	rowId(item) {
-		return item.user.id
+		return item.id
 	},
 	columns: [
 		{
@@ -23,7 +23,7 @@ export const rolesByUsersTableConfig: DataTableConfig<GetAllResult> = {
 				return 'user'
 			},
 			content(item) {
-				return item.user.name
+				return item.name
 			},
 		},
 		{
@@ -31,7 +31,7 @@ export const rolesByUsersTableConfig: DataTableConfig<GetAllResult> = {
 				return 'roles'
 			},
 			content(item) {
-				return <Link className="btn btn-link" href={`?manageRolesOf=${item.user.id}`}>edit roles</Link>
+				return <Link className="btn btn-link" href={`?manageRolesOf=${item.id}`}>edit roles</Link>
 			},
 		},
 		{

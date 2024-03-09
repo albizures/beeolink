@@ -1,13 +1,19 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { FormModal } from '../../components/FormModal/FormModal'
 import { ConfirmModal } from '../../components/Confirm/Confirm'
+import { hasAccess } from '../../access'
 
 export type AdminLayoutProps = {
 	children: React.ReactNode
 }
 
-export default function AdminLayout(props: AdminLayoutProps) {
+export default async function AdminLayout(props: AdminLayoutProps) {
 	const { children } = props
+
+	if (!(await hasAccess(['ADMIN']))) {
+		return redirect('/login')
+	}
 
 	return (
 		<div className="drawer lg:drawer-open">
