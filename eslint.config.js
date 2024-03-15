@@ -1,7 +1,11 @@
 const antfu = require('@antfu/eslint-config').default
 const { FlatCompat } = require('@eslint/eslintrc')
+const js = require('@eslint/js')
 
-const compat = new FlatCompat()
+const compat = new FlatCompat({
+	recommendedConfig: js.configs.recommended,
+	allConfig: js.configs.all,
+})
 
 module.exports = antfu(
 	{
@@ -35,7 +39,7 @@ module.exports = antfu(
 	// Legacy config
 	...compat.config({
 		extends: [
-			// "next/core-web-vitals",
+			// 'next/core-web-vitals',
 			'plugin:eslint-plugin-next-on-pages/recommended',
 		],
 		plugins: [

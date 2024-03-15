@@ -75,6 +75,11 @@ async function Profile(props: ProfileProps) {
 						Profile
 					</a>
 				</li>
+				<li>
+					<Link href="/beeo">
+						My Beeo
+					</Link>
+				</li>
 				{permissions.includes(appPermissions.ADMIN) && (
 					<li>
 						<Link href="/admin/roles">Admin</Link>
