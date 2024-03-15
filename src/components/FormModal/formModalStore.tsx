@@ -4,6 +4,7 @@ import { type ModalState, createModalHelpers } from '../Modals/modalHelpers'
 import type { FieldDescriptor } from '../Form/FormFields'
 import type { FormAction } from '../Form/Form'
 import type { FormState } from '../Form/formState'
+import { actionStatus } from '../../actionStatus'
 
 type FormModalState = ModalState & {
 	status: 'open' | 'closed'
@@ -17,7 +18,7 @@ type FormModalState = ModalState & {
 }
 
 const defaultFormState: FormState = Ok({
-	status: 'idle',
+	status: actionStatus.IDLE,
 })
 
 const defaultState: FormModalState = {

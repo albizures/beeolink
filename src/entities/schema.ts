@@ -8,3 +8,4 @@ export { permission } from './permission/permission'
 
 export { rolePermission } from './rolePermission/rolePermission'
 export { userRole } from './userRole/userRole'
+export { olink, userOlink } from './olink/olink'

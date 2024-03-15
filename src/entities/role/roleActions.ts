@@ -3,6 +3,7 @@ import { Err, Ok, toCapture } from '@vyke/results'
 import type { FormState } from '../../components/Form/formState'
 import { rootSola } from '../../sola'
 import { defineAction } from '../../actions'
+import { actionStatus } from '../../actionStatus'
 import { roleHelpes } from './role'
 
 const sola = rootSola.withTag('role-actions')
@@ -16,14 +17,14 @@ export const createRole = defineAction(async (prev: FormState, data: FormData): 
 
 	if (result.ok) {
 		return Ok({
-			status: 'success',
+			status: actionStatus.SUCCESS,
 		})
 	}
 
 	console.error(result)
 
 	return Err({
-		status: 'failed',
+		status: actionStatus.FAILED,
 	})
 }, ['MANAGE_ROLE'])
 
@@ -32,14 +33,14 @@ export const deleteRole = defineAction(async (id: string): Promise<FormState> =>
 
 	if (result.ok) {
 		return Ok({
-			status: 'success',
+			status: actionStatus.SUCCESS,
 		})
 	}
 
 	console.error(result)
 
 	return Err({
-		status: 'failed',
+		status: actionStatus.FAILED,
 	})
 }, ['MANAGE_ROLE'])
 
@@ -56,7 +57,7 @@ export const updateRole = defineAction(async (prev: FormState, data: FormData): 
 		sola.error(parseResult.error)
 
 		return Err({
-			status: 'failed',
+			status: actionStatus.FAILED,
 		})
 	}
 
@@ -65,11 +66,11 @@ export const updateRole = defineAction(async (prev: FormState, data: FormData): 
 	if (!result.ok) {
 		sola.error(result)
 		return Err({
-			status: 'failed',
+			status: actionStatus.FAILED,
 		})
 	}
 
 	return Ok({
-		status: 'success',
+		status: actionStatus.SUCCESS,
 	})
 }, ['MANAGE_ROLE'])

@@ -4,8 +4,8 @@ import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { Icon } from '../Icon'
 import { FormFields } from '../Form/FormFields'
-import type { FormStateStatus } from '../Form/formState'
 import { FormFeedback } from '../Form/FormFeedback'
+import { type ActionStatus, actionStatus } from '../../actionStatus'
 import { formModalHelpers } from './formModalStore'
 
 export function FormModal() {
@@ -20,7 +20,7 @@ function FormModalContent() {
 	const { action, initialState, title, fields, submitLabel } = modal
 	const [state, formAction] = useFormState(action, initialState)
 
-	const status = state.ok ? state.value.status : 'failed'
+	const status = state.ok ? state.value.status : actionStatus.FAILED
 
 	return (
 		<dialog ref={formModalHelpers.setRef} className="modal">
@@ -54,7 +54,7 @@ function FormModalContent() {
 
 type ModalBoxProps = {
 	children: React.ReactNode
-	formStateStatus: FormStateStatus
+	formStateStatus: ActionStatus
 }
 
 function ModalBox(props: ModalBoxProps) {
@@ -88,7 +88,7 @@ function ModalBox(props: ModalBoxProps) {
 
 type ModalContentProps = {
 	children: React.ReactNode
-	formStateStatus: FormStateStatus
+	formStateStatus: ActionStatus
 }
 
 function ModalContent(props: ModalContentProps) {

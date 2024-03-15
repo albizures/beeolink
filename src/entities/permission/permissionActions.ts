@@ -5,6 +5,7 @@ import { rootSola } from '../../sola'
 import type { FormState } from '../../components/Form/formState'
 import { authOptions } from '../../auth'
 import { defineAction } from '../../actions'
+import { actionStatus } from '../../actionStatus'
 import { permissionHelpers } from './permission'
 
 const sola = rootSola.withTag('permission-actions')
@@ -19,14 +20,14 @@ export const createPermission = defineAction(async (prev: FormState, data: FormD
 
 	if (result.ok) {
 		return Ok({
-			status: 'success',
+			status: actionStatus.SUCCESS,
 		})
 	}
 
 	console.error(result)
 
 	return Err({
-		status: 'failed',
+		status: actionStatus.FAILED,
 	})
 }, ['MANAGE_PERMISSION'])
 
@@ -38,14 +39,14 @@ export const deletePermission = defineAction(async (id: string): Promise<FormSta
 
 	if (result.ok) {
 		return Ok({
-			status: 'success',
+			status: actionStatus.SUCCESS,
 		})
 	}
 
 	console.error(result)
 
 	return Err({
-		status: 'failed',
+		status: actionStatus.FAILED,
 	})
 }, ['MANAGE_PERMISSION'])
 
@@ -65,7 +66,7 @@ export const updatePermission = defineAction(async (prev: FormState, data: FormD
 		sola.error(parseResult.error)
 
 		return Err({
-			status: 'failed',
+			status: actionStatus.FAILED,
 		})
 	}
 
@@ -74,11 +75,11 @@ export const updatePermission = defineAction(async (prev: FormState, data: FormD
 	if (!result.ok) {
 		sola.error(result)
 		return Err({
-			status: 'failed',
+			status: actionStatus.FAILED,
 		})
 	}
 
 	return Ok({
-		status: 'success',
+		status: actionStatus.SUCCESS,
 	})
 }, ['MANAGE_PERMISSION'])
